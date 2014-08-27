@@ -598,7 +598,11 @@ EXPORT_SYMBOL(memset);
 void memzero_explicit(void *s, size_t count)
 {
 	memset(s, 0, count);
+<<<<<<< HEAD
 	barrier();
+=======
+	OPTIMIZER_HIDE_VAR(s);
+>>>>>>> 21411c7... random: add and use memzero_explicit() for clearing data
 }
 EXPORT_SYMBOL(memzero_explicit);
 
