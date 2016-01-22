@@ -119,8 +119,8 @@ config CPU_FREQ_DEFAULT_GOV_INTERACTIVE
 	  'interactive' governor for latency-sensitive workloads.
 
 config CPU_FREQ_DEFAULT_GOV_DARKNESS
- 	bool "darkness"
- 	select CPU_FREQ_GOV_DARKNESS
+	bool "darkness"
+	select CPU_FREQ_GOV_DARKNESS
 
 endchoice
 
@@ -219,6 +219,12 @@ config CPU_FREQ_GOV_CONSERVATIVE
 	  For details, take a look at linux/Documentation/cpu-freq.
 
 	  If in doubt, say N.
+
+config CPU_FREQ_GOV_PMC
+  tristate "'pmc' cpufreq policy governor"	
+  select CPU_FREQ_TABLE	
+  help	
+    'smartmax' tweaked for absolute battery
 
 config CPU_BOOST
 	tristate "Event base short term CPU freq boost"
