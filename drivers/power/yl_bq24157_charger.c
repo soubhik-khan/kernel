@@ -30,9 +30,6 @@
 #include <linux/wakelock.h>
 #include <linux/qpnp/power-on.h>
 #include "yl_pm8916_vbus.h"
-#ifdef CONFIG_THUNDERCHARGE_CONTROL
-#include "thundercharge_control.h"
-#endif
 
 struct bq24157_chip {
 	struct device         *dev;
@@ -1338,6 +1335,7 @@ static void bq24157_external_power_changed(struct power_supply *psy)
 		dev_err(chip->dev,
 			"could not read USB current_max property, rc=%d\n", rc);
 	else
+<<<<<<< HEAD
     {
 #ifdef CONFIG_THUNDERCHARGE_CONTROL
         if(!((prop.intval / 1000) ==0))
@@ -1367,6 +1365,9 @@ static void bq24157_external_power_changed(struct power_supply *psy)
         chip->set_ivbus_max = prop.intval / 1000;
 #endif
     }
+=======
+		chip->set_ivbus_max = prop.intval / 1000;
+>>>>>>> parent of d06cef7... tomato: Introducing ThunderCharge control 1.0 - a driver to control charging current
 
 
 	rc = bq24157_set_ivbus_max(chip, chip->set_ivbus_max); //VBUS CURRENT
