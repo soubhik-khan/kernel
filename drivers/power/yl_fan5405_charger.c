@@ -1341,40 +1341,8 @@ static void fan5405_external_power_changed(struct power_supply *psy)
 	if (rc < 0)
 		dev_err(chip->dev,
 			"could not read USB current_max property, rc=%d\n", rc);
-<<<<<<< HEAD
-	else {
-#ifdef CONFIG_THUNDERCHARGE_CONTROL
-        if(!((prop.intval / 1000) ==0))
-        {
-<<<<<<< HEAD
-            if(mswitch==1) {
-                if((prop.intval / 1000) == DEFAULT_USB_CURRENT) {
-                    pr_info("Using custom USB current %d", custom_usb_current);
-                    chip->set_ivbus_max = custom_usb_current;
-                }
-                else {
-                    pr_info("Using custom AC current %d", custom_current);
-                    chip->set_ivbus_max = custom_current;
-                }
-            }
-            else {
-                chip->set_ivbus_max = prop.intval / 1000;
-            }
-=======
-        pr_info("Using custom current of %d",custom_current);
-		chip->set_ivbus_max = custom_current;
->>>>>>> parent of f60fe95... thundercharge control v2.0
-        }
-        else
-        chip->set_ivbus_max = 0;
-#else
-        chip->set_ivbus_max = prop.intval / 1000;
-#endif
-		}
-=======
 	else
 		chip->set_ivbus_max = prop.intval / 1000;
->>>>>>> parent of bcef271... ThunderCharge: update the charger with the data of custom current
 
 
 	rc = fan5405_set_ivbus_max(chip, chip->set_ivbus_max); //VBUS CURRENT

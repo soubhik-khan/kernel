@@ -1335,39 +1335,7 @@ static void bq24157_external_power_changed(struct power_supply *psy)
 		dev_err(chip->dev,
 			"could not read USB current_max property, rc=%d\n", rc);
 	else
-<<<<<<< HEAD
-    {
-#ifdef CONFIG_THUNDERCHARGE_CONTROL
-        if(!((prop.intval / 1000) ==0))
-        {
-<<<<<<< HEAD
-            if(mswitch==1) {
-                if((prop.intval / 1000) == DEFAULT_USB_CURRENT) {
-                    pr_info("Using custom USB current %d", custom_usb_current);
-                    chip->set_ivbus_max = custom_usb_current;
-                }
-                else {
-                    pr_info("Using custom AC current %d", custom_current);
-                    chip->set_ivbus_max = custom_current;
-                }
-            }
-            else {
-                chip->set_ivbus_max = prop.intval / 1000;
-            }
-=======
-        pr_info("Using custom current of %d",custom_current);
-		chip->set_ivbus_max = custom_current;
->>>>>>> parent of f60fe95... thundercharge control v2.0
-        }
-        else
-        chip->set_ivbus_max = 0;
-#else
-        chip->set_ivbus_max = prop.intval / 1000;
-#endif
-    }
-=======
 		chip->set_ivbus_max = prop.intval / 1000;
->>>>>>> parent of d06cef7... tomato: Introducing ThunderCharge control 1.0 - a driver to control charging current
 
 
 	rc = bq24157_set_ivbus_max(chip, chip->set_ivbus_max); //VBUS CURRENT
