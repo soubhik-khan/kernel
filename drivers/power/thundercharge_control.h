@@ -15,8 +15,12 @@
  */
 #ifndef __THUNDERCHARGE_CONTROL_H__
 #define __THUNDERCHARGE_CONTROL_H__
+<<<<<<< HEAD
 #define DEFAULT_USB_CURRENT 500
 extern int custom_current;
 extern int custom_usb_current;
+=======
+extern int custom_current;
+>>>>>>> parent of f60fe95... thundercharge control v2.0
 extern int mswitch;
 #endif
