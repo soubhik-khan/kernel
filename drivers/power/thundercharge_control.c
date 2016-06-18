@@ -28,10 +28,14 @@ int custom_current = AC_CURRENT;
 int custom_usb_current = USB_CURRENT;
 =======
 #define DRIVER_VERSION  1
+<<<<<<< HEAD
 #define DRIVER_SUBVER 1
 >>>>>>> parent of f60fe95... thundercharge control v2.0
 
 #define MAX_VBUS_CURRENT 1500
+=======
+#define DRIVER_SUBVER 0
+>>>>>>> parent of a229c2d... ThunderCharge Control 1.1
 
 static ssize_t mswitch_show(struct kobject *kobj, struct kobj_attribute *attr, char *buf)
 {
@@ -90,10 +94,10 @@ static ssize_t cust_ac_current_store(struct kobject *kobj, struct kobj_attribute
 =======
 int newcurr;
 sscanf(buf, "%d", &newcurr);
-if(mswitch==1 && newcurr<=MAX_VBUS_CURRENT)
+if(mswitch==1)
 custom_current = newcurr;
 else
-pr_info("Main switch disabled or exceeds vbus limit, neglecting values\n");
+pr_info("Main switch disabled, neglecting values\n");
 return count;
 >>>>>>> parent of f60fe95... thundercharge control v2.0
 }
