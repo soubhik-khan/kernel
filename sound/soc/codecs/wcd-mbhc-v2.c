@@ -31,6 +31,10 @@
 #include "wcd-mbhc-v2.h"
 #include "wcdcal-hwdep.h"
 
+#ifdef CONFIG_MACH_CP8675
+#include "msm8x16_wcd_registers.h"
+#endif
+
 #define WCD_MBHC_JACK_MASK (SND_JACK_HEADSET | SND_JACK_OC_HPHL | \
 			   SND_JACK_OC_HPHR | SND_JACK_LINEOUT | \
 			   SND_JACK_UNSUPPORTED | SND_JACK_MECHANICAL)
@@ -140,6 +144,14 @@ static void wcd_program_btn_threshold(const struct wcd_mbhc *mbhc, bool micbias)
 
 	mbhc->mbhc_cb->set_btn_thr(codec, btn_low, btn_high, btn_det->num_btn,
 				   micbias);
+
+#ifdef CONFIG_MACH_CP8675
+	snd_soc_update_bits(codec, MSM8X16_WCD_A_ANALOG_MBHC_BTN0_ZDETL_CTL, 0xFC, 0x20);
+	snd_soc_update_bits(codec, MSM8X16_WCD_A_ANALOG_MBHC_BTN1_ZDETM_CTL, 0xFC, 0x68);
+	snd_soc_update_bits(codec, MSM8X16_WCD_A_ANALOG_MBHC_BTN2_ZDETH_CTL, 0xFC, 0x40);
+	snd_soc_update_bits(codec, MSM8X16_WCD_A_ANALOG_MBHC_BTN3_CTL, 0xFC, 0x78);
+	snd_soc_update_bits(codec, MSM8X16_WCD_A_ANALOG_MBHC_BTN4_CTL, 0xFC, 0x88);
+#endif
 }
 
 static void wcd_enable_curr_micbias(const struct wcd_mbhc *mbhc,
@@ -2154,18 +2166,6 @@ int wcd_mbhc_init(struct wcd_mbhc *mbhc, struct snd_soc_codec *codec,
 		ret = snd_jack_set_key(mbhc->button_jack.jack,
 				       SND_JACK_BTN_0,
 				       KEY_MEDIA);
-		ret = snd_jack_set_key(mbhc->button_jack.jack,
-				       SND_JACK_BTN_1,
-				       KEY_VOLUMEUP);
-		ret = snd_jack_set_key(mbhc->button_jack.jack,
-				       SND_JACK_BTN_2,
-				       KEY_VOLUMEDOWN);
-		ret = snd_jack_set_key(mbhc->button_jack.jack,
-				       SND_JACK_BTN_3,
-				       KEY_VOLUMEDOWN);
-		ret = snd_jack_set_key(mbhc->button_jack.jack,
-				       SND_JACK_BTN_4,
-				       KEY_VOLUMEDOWN);
 		if (ret) {
 			pr_err("%s: Failed to set code for btn-0\n",
 				__func__);
